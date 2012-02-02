@@ -1,0 +1,11 @@
+
+citation.bib --- This is the place for bibtex files
+contents/ -- this contains the actual textual content of the paper
+	abstract.tex  
+	introduction.tex 
+	relatedwork.tex
+	conclusion.tex
+	...
+images/ -- store all images in this folder
+paper.tex --- This is the main file that controlls the flow of the paper
+	

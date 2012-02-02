@@ -1,0 +1,72 @@
+\documentclass[twocolumn]{article}
+\input{shorthands}
+\input{packages}
+\DeclareGraphicsExtensions{.pdf,.png,.jpg}
+
+\title{CrowdPillar: Reducing Uncertainty in Probabilistic Databases by Leveraging Support from the Crowd}
+
+\author{Sean Goldberg\\
+	{\it University of Florida}\\
+	%{\it\small Computer Information Science \& Enginnering}\\
+	%{\it Gainesville, Florida}\\
+	sean@cise.ufl.edu \and 
+	Daisy Zhe Wang\\
+	{\it University of Florida}\\
+	%{\it\small Computer Information Science \& Enginnering}\\
+	%{\it Gainesville, Florida}\\
+	daisyw@cise.ufl.edu
+\and 
+	Sunny Khatri\\
+	{\it University of Florida}\\
+	%{\it\small Computer Information Science \& Enginnering}\\
+	%{\it Gainesville, Florida}\\
+	skhatri@cise.ufl.edu \and
+	Nilu Nalini\\
+	{\it University of Florida}\\
+	%{\it\small Computer Information Science \& Enginnering}\\
+	%{\it Gainesville, Florida}\\
+	nilu.nalini@gmail.com}
+
+
+\begin{document}
+\maketitle
+
+%\input{content/abstract.tex}
+
+\input{content/introduction.tex}
+% Motivation Information Extraction
+
+\input{content/background.tex}
+% Probabilistic Databases and Related Work
+
+\input{content/system.tex}
+% System Overview and Components
+
+\input{content/token.tex}
+% Token Selection
+% Correlation between accuracy and entropy
+% Highest Marginal For Selection
+% Query-time selection
+% Frequency of Ocurrence Selection
+% Fusion
+
+\input{content/crowd.tex}
+% overview of AMT
+% discussion on importance of asking the right questions
+
+\input{content/combine.tex}
+% Combining probabilities from multiple models.
+
+\input{content/experiments.tex}
+% Overview of experiments conducted.
+
+\input{content/future_work.tex}
+
+\input{content/conclusion.tex}
+
+\input{bibliography.tex}
+
+%\bibliographystyle{abbvr}
+%\bibliography{citation}
+
+\end{document}

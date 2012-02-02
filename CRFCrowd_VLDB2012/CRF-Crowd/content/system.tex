@@ -1,0 +1,19 @@
+\section{System Overview}
+\sean{Present main problem definition.  Describe high level system components and flow of information.  1. Graphical Model-based PDB. 2. High-level Question formulation. 3. Asking those questions to the crowd and handling the results.  Very high level as a layout for the rest of the paper.}
+
+The CrowdPillar system design is shown in (FIGURE). The core of the system is designed as a modification to probabilistic databases that utilize PGMs as their data model.  Crowdpillar analyzes the uncertainty in the output and generates questions for crowd submission to reduce some Total Utility Function (TUF).  This is discussed in greater detail in (SECTION).  The response of the crowd is combined in a principled way with the original PGM output using Dempter-Shafer belief theory, as described in (SECTION).
+
+We consider a sample application task and follow it through the major components of the system: the probabilistic database, question formulation, crowd submission, and data fusion.
+
+Consider an extraction system for automatically reading published citations and storing them in the database.  In order to fit an incoming citation into the schema, the string has to be appropriately chunked to determine which tokens belong to which attributes.  A string such as:
+\sean{insert citation}
+needs to be labeled with its appropriate title, author, conference, etc.
+
+Conditional random fields are particularly well suited to this information extraction task, though many IE methods that can derive the appropriately labelings may be used.  There are advantages to storing the CRF model directly in the database.  In addition to scalability, parameters of the model may be accessed to decide both which questions to ask and how they should be presented to the crowd.
+
+Once the data has been labeled, we wish to optimally select a number of sequences of high uncertainty and query the crowd for a subset of each sequence's tokens.  How many questions can be asked depends on the user's cost and time budget.  We discuss a number of sequence selection criteria in (SECTION) based on the type of PGM used.
+
+After determining which sequences should be sent to the crowd, we generate a question in XML format for each sequence.  Questions may be in the form of multiple choice, fill in the label, yes/no, etc.  Given the possible uncertainty in the crowd response, we resolve conflict and combine responses using Dempster-Shafer theory based on the Turkers' approval ratings to generate a probabilistic collection of responses to each question.
+
+The crowd submissions are sent back to the database, where they are combined with the original output CRF data using (TECHNIQUE)/sean{Possibly also DS}.  The system is designed to be run in batch mode, either whenever a collection of new data is entered into the system or a budget for another round of questions becomes available.  How often to specifically query for answers will be dependent on the user's specifications and needs. 
+

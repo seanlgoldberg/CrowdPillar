@@ -1,0 +1,114 @@
+
+% comments
+\newcommand{\mike}[1]{{\textcolor{green}{#1 -- MJF}}}
+\newcommand{\joe}[1]{{\textcolor{red}{#1 -- JMH}}}
+\newcommand{\minos}[1]{{\textcolor{cyan}{#1 -- MG}}}
+\newcommand{\daisy}[1]{{\textcolor{magenta}{#1 -- DZW}}}
+\newcommand{\sean}[1]{{\textcolor{blue}{#1--SLG}}}
+
+
+% general
+\renewcommand{\ttdefault}{cmtt}
+\newcommand{\rbox}{\hfill $\Box$}
+
+\newtheorem{thm}{Thorem}
+\newtheorem{lem}{Lemma}
+\newtheorem{ex}{Example}
+\newtheorem{df}{Definition}[section]
+
+\newcommand{\eat}[1]{}
+\newcommand{\vpar}{\vspace*{.5em}}
+\newcommand{\cut}[1]{}
+
+\newenvironment{compactitemize}%
+    {\begin{list}{}{
+       \renewcommand{\makelabel}[1]{\bf $\bullet$}\hfil%
+       \settowidth{\labelwidth}{\bf $\bullet$}%
+       \setlength{\partopsep}{0mm}%
+       \setlength{\parsep}{0mm}%
+       \setlength{\parindent}{0mm}%
+       \setlength{\itemsep}{0mm}%
+       \setlength{\topsep}{0mm}%
+       \setlength{\leftmargin}{\labelwidth}%
+       \addtolength{\leftmargin}{\labelsep}
+     }}%
+    {\end{list}}
+
+% BayesStore
+\newcommand{\bs}{\textsc{BayesStore}\xspace}
+\newcommand{\largebs}{{\large{\textsc{BayesStore}}}\xspace}
+\newcommand{\Largebs}{{\Large{\textsc{BayesStore}}}\xspace}
+\newcommand{\LARGEbs}{{\LARGE{\textsc{BayesStore}}}\xspace}
+\newcommand{\hugebs}{{\huge{\textsc{BayesStore}}}\xspace}
+
+% VLDB08 Abbreviations:
+\newcommand{\ir}{$R$\xspace}
+\newcommand{\sensor}{\textsl{Sensor1}\xspace}
+\newcommand{\irset}{$\mathcal{R}$\xspace}
+\newcommand{\pr}{\mbox{\sf Pr}}
+\newcommand{\dom}{\mbox{\sf dom}}
+\newcommand{\pdf}{$F$\xspace}
+\newcommand{\true}{$true$\xspace}
+\newcommand{\false}{$false$\xspace}
+%\newcommand{\model}{$\mathcal{M}$}
+\newcommand{\mv}{\textsl{miss}\xspace}
+\newcommand{\RV}{\textsc{rv}\xspace}
+\newcommand{\RVs}{\textsc{rv}s\xspace}
+\newcommand{\bns}{\textsc{BN}s\xspace}
+\newcommand{\mrfs}{\textsc{MRF}s\xspace}
+\newcommand{\mrf}{\textsc{MRF}\xspace}
+\newcommand{\rv}{$X$}
+\newcommand{\pa}{$\mathcal{A}^p$\xspace}
+\newcommand{\da}{$\mathcal{A}^d$\xspace}
+\newcommand{\ed}{$\mathcal{ED}$}
+%\newcommand{\entity}{e\xspace}
+\newcommand{\es}{$\mathcal{E}$\xspace}
+\newcommand{\op}{$\theta$\xspace}
+%\newcommand{\bnf}{$\varphi$\xspace}
+\newcommand{\fobnf}{$\phi$\xspace}
+\newcommand{\fobn}{$\mathcal{M}_{FOBN}$\xspace}
+\newcommand{\bn}{\textsc{bn}\xspace}
+%\newcommand{\fbn}{$\textsc{fobn}$\xspace}
+\newcommand{\MV}{$NULL$\xspace}
+\newcommand{\mapping}{$f$\xspace}
+\newcommand{\stripe}{$S$\xspace}
+\newcommand{\selectivity}{\textsl{sel}\xspace}
+\newcommand{\size}{\textsl{size}\xspace}
+\newcommand{\missing}{\textsl{mratio}\xspace}
+\newcommand{\connectivity}{\textsl{cratio}\xspace}
+\newcommand{\probDB}{$\mathcal{DB}^p$}
+%\newcommand{\exf}{$\mathcal{E}$}
+
+% ICDE10
+
+\newcommand{\tf}{text-string\xspace}
+\newcommand{\IPD}{IPS\xspace}
+\newcommand{\tfs}{text-strings\xspace}
+\newcommand{\Tfs}{Text-strings\xspace}
+\newcommand{\ie}{\textsc{ie}\xspace}
+\newcommand{\model}{$\mathcal{M}$\xspace}
+\newcommand{\tokenset}{\ensuremath{\mathbf{X}}\xspace}
+\newcommand{\tokenseq}{\ensuremath{\mathbf{x}}\xspace}
+\newcommand{\rvset}{\ensuremath{\mathbf{V}}\xspace}
+\newcommand{\token}{\ensuremath{x}\xspace}
+\newcommand{\labelset}{\ensuremath{\mathbf{Y}}\xspace}
+\newcommand{\labelseq}{\ensuremath{\mathbf{y}}\xspace}
+\newcommand{\crf}{$\mathcal{M}_{CRF}$\xspace}
+\newcommand{\tokentbl}{\textsc{TokenTbl}\xspace}
+\newcommand{\mr}{\textsc{MR}\xspace}
+\newcommand{\strs}{$\mathcal{D}$\xspace}
+\newcommand{\str}{\textit{d}\xspace}
+\newcommand{\probsel}{\textit{probsel}\xspace}
+\newcommand{\pwd}{\textit{pwd$(D^p)$}\xspace}
+
+% HFGM-286report
+
+\newcommand{\hfgm}{\textsc{hfgm}\xspace}
+\newcommand{\rvs}{\textsc{rv}s\xspace}
+\newcommand{\prm}{\textsc{prm}\xspace}
+
+% extensibility
+
+\newcommand{\pgm}{\textsc{PGM}\xspace}
+\newcommand{\fctrset}{$\mathcal{F}$\xspace}
+\newcommand{\probdbms}{\textsc{PDBMS}\xspace}

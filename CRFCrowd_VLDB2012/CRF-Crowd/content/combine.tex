@@ -1,0 +1,125 @@
+\section{Probabilistic Data Integration}
+
+In an ideal world, all the responses coming from the crowd will be correct values equivalent to the ground truth.  We formulate question, get an answer, and replace fields that were requested in the question.  In practice, there are numerous reasons a single person from the crowd may not supply the correct result.
+
+Amazon Mechanical Turks is subject to spammers that provide random responses in order to reap the benefit of the HIT while doing little of the work.  Much previous research has been done to reduce the effect of spammers.  Even honest Turkers, however, may not always give the correct response for reasons such as lack of knowledge, inexperience, or increased difficulty of the questions.  The golden standard has been to ask the question multiple times and take a majority vote among the users. 
+
+Here we model a new way of looking at the crowd response viewing it as an application of probabilistic data integration.  In traditional data integration, data is combined from multiple heterogeneous sources to give the user a single, unified view.  Probabilistic data integration attaches probabilities to the combined result.  Generally, there is ambiguity in the compatibility of certain relations which leads to a probability value as a result of combination itself, despite the data being indivudally deterministic.
+
+It's also possible for the data coming from different sources to include probability as a first class citizen, that is, the data is naturally probabilistic, such as the combination of probabilistic sensor data.  Combining results from the crowd becomes an application in probabilistic data integration if we take each Turker to be a source of data and attach probabilities to their answers based on their Turker Approval Rating.  
+
+We employ the machinary of the Dempster-Shafer model of belief functions to combine probabilistic evidence from multiple sources.  The goal is to combine data from different Turkers to present a single unified crowd response for merging with the original CRF output.  This second step of combining crowd and CRF can be accomplished using the same method, but treating the total crowd and CRF as different probabilistic sources.
+
+\subsection{Dempster-Shafer Belief Model}
+The Dempster-Shafer model \cite{dempster67} \cite{shafer76} employs a mathematical object called a belief function that measures the degree of belief (or mass) someone has about an event.  The uncertainty associated with a belief corresponds with missing or incomplete data, as opposed to fuzzy or possibilistic data.  Collecting evidence from different sources, one can establish a degree of belief about the reliability of the source itself and therefore also the evidence presented.
+
+Consider an event $X$.  Dempster-Shafer theory maps each element of the power set of $X$ to the interval $[0,1]$.  This mapping is referred to as the /textit{mass function}.  The fundamental properties of the mass function are:
+
+\begin{equation*}
+m(\emptyset) = 0
+\end{equation*}
+\begin{equation*}
+\sum_{A\in2^{X}} m(A) = 1
+\end{equation*}
+
+That is, the mass of the empty set is always zero and the remaining members of the power set have to sum to 1.
+
+To motivate back to our original problem of information extraction, let's assume there are 2 possible labelings for a token, $X=\{1,2\}$.  Of the four elements of the power set of X, only 3 have mass functions: m(\{1\}), m(\{2\}), and m(\{1,2\}).  They correspond to the mass that the proper label is 1, that the proper label is 2, or that we are uncertain and the proper label can still be either 1 or 2.
+
+The \textit{belief} in a set is the sum of all elements of the power set that contain that set.  Therefore the belief in label 1 is defined as $m(\{1\})+m(\{1,2\})$, with a similar function for the belief in label 2.
+
+Mass functions from multiple sources may be combined in a principled manner using Dempster's Rule of Combination.  Let's presume we have two different mass functions $m_{1}$ and $m_{2}$.  The \textit{joint mass} is found with:
+
+\begin{equation*}
+\begin{split}
+m_{1,2}(\emptyset) &=0\\
+%\end{equation*}
+%\begin{equation*}
+%\begin{split}
+m_{1,2}(A) &=(m_{1}\oplus m_{2})(A)\\
+                   &=\frac{1}{1-K} \sum_{B\cap C=A\neq\emptyset} m_{1}(B)m_{2}(C)
+\end{split}
+\end{equation*}
+
+where
+
+\begin{equation*}
+K=\sum_{B\bigcap C=\emptyset}m_{1}(B)m_{2}(C)
+\end{equation*}
+
+The combination is essentially a normalized outer product.  All combinations with an intersection equal to the event in question are summed.
+ 
+\subsection{Combining Crowd Data}
+
+If multiple Turkers are treated as different sources and their responses and evidence, we can map those responses to belief functions and combine them using the Rule of Combination.  The usual technique is to ask the same question to multiple Turkers and take a majority vote.  While it has been shown in an image annotation task (CITATION) that repeated labeling and majority vote of the crowd can approach annotation accuracy of experiments, the nature of the combination removes the uncertainty from the result.
+
+Let's say that we limit responses to only those Turkers with a 75\% approval rating or above and do a best of 5 majority vote.  If three Turkers with an approval rating of 75\% answer label 1 and two turkers with an approval rating of 100\% answer label 2, the majority vote takes label 1 and passes no other information about who responded with which label.  If a particularly difficult question has Turkers divided, this is generally not included in the annotation.  This makes sense if the annotation storage component has no method to store probabilities, but this is clearly not the case for probabilistic databases.
+
+If the crowd gives conflicting  responses to a question, this discrepancy can be illustrated within the databases by determining the belief we have that each label is correct.  This is where we make use of the machinery of Dempster-Shafer theory.
+
+(ALGORITHM1) displays the pseudocode for combining crowd responses with Dempster-Shafer.  The input is a Question data structure that contains a Question ID and a set of Turkers that have provided a response to the question.  Each Turker has fields for identification, approval rating, and their response.  The actual response is a binary vector the length of the label space with a $1$ in the position of their answer and $0$s elsewhere.
+
+We must first map each response to a mass function before we employ combination.  The number of mass functions is generally equal to the power set of the set of possible answers, but in practice most of these are zero.  The nonzero mass functions we are concerned include one for each answer (certainty) plus one associated with all answers (uncertainty), for a total size of NumPossAnswers+1.
+
+For each Turker, we map their response to the associated mass function modified by their reliability (approval rating).  Every Turker also has an uncertainty mass function which corresponds to the belief they are unreliable and any of the possible answers is valid.  Once the mass functions are set, they are combined as an outer product among all intersecting elements that are not empty. $K$ represents a renormalization of the new combination.
+
+
+
+\begin{algorithm}
+	\SetAlgoLined
+	\KwData{Question Q, Turker T, Response R}
+	\KwResult{Q.B = Total belief in each question's answer}
+	\Begin{
+	\For{$i=1$ \KwTo T.size}{
+		\For{$j=1$ \KwTo Q.numAns}{
+			m[$j$] $\leftarrow$ Turk[$i$].response[$j$]$*$Turk[$i$].rating\;
+		}
+		m[numPossAnswers$+1$] $\leftarrow 1 - $Turker[$i$].rating\;
+		\eIf{$i=1$}{
+			labelBelief $\leftarrow$ m\;
+		}
+		{
+			labelBelief $\leftarrow$ DSCombo(m,labelBelief)\;
+		}
+	}
+}
+	\caption{Update Question Belief}
+\end{algorithm}
+
+\begin{algorithm}
+	\SetAlgoLined
+	\KwData{m, labelBelief}
+	\KwResult{labelBelief}
+	
+	\For{$p=1$ \KwTo (numPossAnswers+1)}{
+		$k=0$\;
+		\For{$i=1$ \KwTo (numPossAnswers+1)}{
+			\For{$j=1$ \KwTo (numPossAnswers+1)}{
+				\eIf{Intersect(m[$i$],m[$j$])}{
+					tmpOut[$p$] $\leftarrow$ tmpOut[$p$] + m[$i$]*labelBelief[$j$]\;
+				}
+				{
+					$K \leftarrow K +$ m[$i$]$*$labelBelief[$j$]\;
+				}
+			}
+		}
+		tmp[$p$] $\leftarrow \frac{1}{1-K}*$tmp[$p$]\;
+	}
+	labelBelief $\leftarrow$ tmpOut\;
+	%\caption{Dempster's Rule of Combining a labelBelief mass with a new belief function m.}
+\end{algorithm}
+
+\subsection{Combining Crowd and Machine}
+
+After combining multiple answers from the crowd, the total crowd response needs to be aggregated with the original graphical model output.  One method is to completely eliminate the machine response and simply put the crowd data in its place and given the increased reliability of human authors can lead to desirable results.
+
+We take a differing view, however, like a detective collecting evidence from different sources.  The PGM and crowd represent merely two different sources from which conclusions are being drawn.  Rather than throwing away information, we seek to integrate everything we have in a principled way.  On questions in which the crowd is divided amongst itself, we can use the original PGM to "break the tie", so to speak.
+
+The combination of crowd and machine is shown in (ALGORITHM2).  It is very similar to the within crowd combination, but a couple notable exceptions.  The distribution of probability is quite different for the graphical model output.  
+
+There is no "reliability" or "approval rating" associated with the machine, so we take the assumption that the machine is always reliable in its probabilities.  This may seem like a faulty assumption and indeed it would be if we were asking questions that the PGM were very confident in even though they were wrong.  Due to the nature of our TUF, only those questions with high entropy and low certainty are presented.  With the probabilities widely distributed, it's safer to give the machine 100\% reliability and combine its label probabilities as is.
+
+Instead of a binary response vector, the PGM has probabilities associated with each label and we use those directly.  Each label response is associated with a mass function in the same way as before, only now there is no mass function for the uncertainty.
+
+Apart from those changes, the outer product is taken in the same way and produces a total combined belief over all of our sources.
+\sean{UNFINISHED}

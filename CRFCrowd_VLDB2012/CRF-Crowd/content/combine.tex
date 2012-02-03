@@ -55,59 +55,56 @@ If multiple Turkers are treated as different sources and their responses and evi
 
 Let's say that we limit responses to only those Turkers with a 75\% approval rating or above and do a best of 5 majority vote.  If three Turkers with an approval rating of 75\% answer label 1 and two turkers with an approval rating of 100\% answer label 2, the majority vote takes label 1 and passes no other information about who responded with which label.  If a particularly difficult question has Turkers divided, this is generally not included in the annotation.  This makes sense if the annotation storage component has no method to store probabilities, but this is clearly not the case for probabilistic databases.
 
-If the crowd gives conflicting  responses to a question, this discrepancy can be illustrated within the databases by determining the belief we have that each label is correct.  This is where we make use of the machinery of Dempster-Shafer theory.
-
-(ALGORITHM1) displays the pseudocode for combining crowd responses with Dempster-Shafer.  The input is a Question data structure that contains a Question ID and a set of Turkers that have provided a response to the question.  Each Turker has fields for identification, approval rating, and their response.  The actual response is a binary vector the length of the label space with a $1$ in the position of their answer and $0$s elsewhere.
-
-We must first map each response to a mass function before we employ combination.  The number of mass functions is generally equal to the power set of the set of possible answers, but in practice most of these are zero.  The nonzero mass functions we are concerned include one for each answer (certainty) plus one associated with all answers (uncertainty), for a total size of NumPossAnswers+1.
-
-For each Turker, we map their response to the associated mass function modified by their reliability (approval rating).  Every Turker also has an uncertainty mass function which corresponds to the belief they are unreliable and any of the possible answers is valid.  Once the mass functions are set, they are combined as an outer product among all intersecting elements that are not empty. $K$ represents a renormalization of the new combination.
-
+If the crowd gives conflicting  responses to a question, this discrepancy can be illustrated within the database by determining the belief we have that each answer is correct.  This is where we make use of the machinery of Dempster-Shafer theory.  For each question submitted, we maintain a running mass function for the correctness of each possible answer.  This function is updated as new responses come in from the crowd.  If there are $n$ possible answers, we are concerned with $n+1$ masses, one for each answer plus the uncertainty mass that the Turker is unreliable and any answer is possible.  
 
 
 \begin{algorithm}
 	\SetAlgoLined
-	\KwData{Question Q, Turker T, Response R}
-	\KwResult{Q.B = Total belief in each question's answer}
+	\KwData{Question $Q$, Turker $T$, Response $R \in [1,n]$}
+	\KwResult{$Q.m =$ Total mass for Q}
 	\Begin{
-	\For{$i=1$ \KwTo T.size}{
-		\For{$j=1$ \KwTo Q.numAns}{
-			m[$j$] $\leftarrow$ Turk[$i$].response[$j$]$*$Turk[$i$].rating\;
-		}
-		m[numPossAnswers$+1$] $\leftarrow 1 - $Turker[$i$].rating\;
-		\eIf{$i=1$}{
-			labelBelief $\leftarrow$ m\;
+		$n \equiv$ number of possible answers to $Q$\;
+		$Q.m \equiv$ current mass for Q\;
+		Initialize masses $m[1]$,...,$m[n+1]$ to $0$\;
+		\tcp{Map response and uncertainty to mass functions}
+		$m[R] \leftarrow T.rating$\;
+		$m[n+1] \leftarrow 1-T.rating$\;
+		\tcp{Check if this is the first response}
+		\eIf{$Q.m =$ NULL}{
+			\Return{$Q.m \leftarrow m$}		
 		}
 		{
-			labelBelief $\leftarrow$ DSCombo(m,labelBelief)\;
+			Initialize $sum[1]$,...,$sum[n+1]$ to $0$\;
+			\For{$p=1$ \KwTo $n+1$}{
+				Initialize $K \leftarrow 0$\;
+				\For{$i=1$ \KwTo $n+1$}{
+					\For{$j=1$ \KwTo $n+1$}{
+						\tcp{Take outer product}
+						$Outer \leftarrow m[i]*Q.m[j]$\;
+						\tcp{Check for intersection}
+						\eIf{$i=j$ or $i=n+1$ or $j=n+1$}{
+							$sum[p] \leftarrow sum[p]+Outer$\;
+						}
+						{
+							$K \leftarrow K+Outer$\;
+						}
+					}
+				}
+				\tcp{Renormalization}
+				$sum[p] \leftarrow (\frac{1}{1-K})*sum[p]$\;
+			}
+			\Return{$Q.m \leftarrow sum$}
 		}
 	}
-}
-	\caption{Update Question Belief}
+	\caption{Update Question Belief \sean{(Daisy, please let me know if you would change the style of this code)}}
+	\label{DSCombo}
 \end{algorithm}
 
-\begin{algorithm}
-	\SetAlgoLined
-	\KwData{m, labelBelief}
-	\KwResult{labelBelief}
-	
-	\For{$p=1$ \KwTo (numPossAnswers+1)}{
-		$k=0$\;
-		\For{$i=1$ \KwTo (numPossAnswers+1)}{
-			\For{$j=1$ \KwTo (numPossAnswers+1)}{
-				\eIf{Intersect(m[$i$],m[$j$])}{
-					tmpOut[$p$] $\leftarrow$ tmpOut[$p$] + m[$i$]*labelBelief[$j$]\;
-				}
-				{
-					$K \leftarrow K +$ m[$i$]$*$labelBelief[$j$]\;
-				}
-			}
-		}
-		tmp[$p$] $\leftarrow \frac{1}{1-K}*$tmp[$p$]\;
-	}
-	labelBelief $\leftarrow$ tmpOut\;
-	%\caption{Dempster's Rule of Combining a labelBelief mass with a new belief function m.}
-\end{algorithm}
+Algorithm \ref{DSCombo} displays the pseudocode for updating a question's current mass function with a new response provided by the Turker.  For now, we assume the response takes the form of a multiple choice answer and ranges from $1$ to $n$.  The mass function associated with the Turker is zero for every answer except the one they chose, which gets mapped to their approval rating in $[0,1]$.  This defines the likelihood they picked the correct answer.  Their unreliability gets mapped to the set of all possible answers $m[n+1]$.
+
+If there is no current mass associated with the question, the current Turker mass is taken as the Question's mass.  Otherwise, we need to combine the two masses using Dempster's Rule of Combination.  Remember that the combination for each answer is an outer product over all sets that have an intersection equivalent to that answer.  Here we assume mutual exclusivity among all choices and so this intersection occurs only when $m$ and $Q.m$ are the same answer or either is the set of all possible answers.  The final result is a newly combined mass function which can easily be converted into a probability distribution for that question.
+
+\sean{UNFINISHED}
 
 \subsection{Combining Crowd and Machine}
 

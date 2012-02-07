@@ -9,7 +9,8 @@
 	{\it University of Florida}\\
 	%{\it\small Computer Information Science \& Enginnering}\\
 	%{\it Gainesville, Florida}\\
-	sean@cise.ufl.edu \and 
+	sean@cise.ufl.edu 
+\and 
 	Daisy Zhe Wang\\
 	{\it University of Florida}\\
 	%{\it\small Computer Information Science \& Enginnering}\\
@@ -20,13 +21,17 @@
 	{\it University of Florida}\\
 	%{\it\small Computer Information Science \& Enginnering}\\
 	%{\it Gainesville, Florida}\\
-	skhatri@cise.ufl.edu \and
+	skhatri@cise.ufl.edu 
+\and
 	Nilu Nalini\\
 	{\it University of Florida}\\
 	%{\it\small Computer Information Science \& Enginnering}\\
 	%{\it Gainesville, Florida}\\
-	nilu.nalini@gmail.com}
-
+	nilu.nalini@gmail.com
+\and
+	Tim Kraska\\
+	{\it UC Berkeley}\\
+	kraska@eecs.berkeley.edu}
 
 \begin{document}
 \maketitle
@@ -34,28 +39,31 @@
 %\input{content/abstract.tex}
 
 \input{content/introduction.tex}
-% Motivation Information Extraction
+% Motivate problem of uncertainty in database
+% Machine learning methods have inherent uncertainty
+% Goal is to reduce this uncertainty
 
 \input{content/background.tex}
-% Probabilistic Databases and Related Work
+% Probabilistic Databases
+% Probabilistic Graphical Models
+% Entropy
+% Crowd
 
 \input{content/system.tex}
 % System Overview and Components
 
-\input{content/token.tex}
-% Token Selection
-% Correlation between accuracy and entropy
-% Highest Marginal For Selection
-% Query-time selection
-% Frequency of Ocurrence Selection
-% Fusion
+\input{content/TUF.tex}
+% Total Utility Function
+% Assigning Scores to Nodes
+%   Highest Marginal
+%   Most Frequent
+%   Most Dependency
+% Combined metric
 
-\input{content/crowd.tex}
-% overview of AMT
-% discussion on importance of asking the right questions
 
 \input{content/combine.tex}
 % Combining probabilities from multiple models.
+% Dempter-Shafer belief theory
 
 \input{content/experiments.tex}
 % Overview of experiments conducted.

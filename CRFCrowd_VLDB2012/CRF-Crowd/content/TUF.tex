@@ -1,0 +1,24 @@
+\section{Question Formulation}
+
+Given a graphical model with uncertainty associated with a set of unobserved nodes, the main task of CrowdPillar is designating which nodes to observe and by performing inference reduce the uncertainty of the entire system.  Observation is the act of clamping a random variable to a specific value.  For the case of information extraction, this is the truth value of the particular token.
+
+This section is concerned with precisely how to select the optimal node to observe from a graphical model.  Since the entropy of the system is our main barometer, the node whose resolution best reduces this uncertainty is the one sent to the crowd.  Before we can form a discussion about optimal node selection, we must first introduce the metric by which uncertainty is measured in our sysem.
+
+
+\subsection{Total Utility Function}
+
+In order to make a decision about which node to query, we develop the concept of a Total Utility Function (TUF) associated with each type of graphical model. The TUF fulfills two prominent and necessary roles: quantification and selection.  At its core, it represents a quantification of the uncertainty so that we may measure differences in total uncertainty between different configurations of our model.  The second functionality is that is designed in such a way as to rapidly promote uncertainty reduction by identifying the key node hubs whose resolution gives the greatest effect.  There are node features that need to be taken into account such as frequency and dependency which will be discussed in greater detail later in the section 
+
+The Total Utility Function works by assigning to each unobserved node some kind of score. There are two paradigms that may be used here.  The first is to assign each node a score in a simple manner and combine them in some complex model-dependent way.  The other is to leave the score combination simple. but create complex ways to attach a score to each node.  We choose the latter approach because it is more easily generalizable to various PGMs.
+
+The simplest way to combine scores is to take the sum.  This makes node selection for reduction simple.  By observing the node with the highest score and reducing its score to zero, the entire function is maximally reduced.  The tradeoff is that the method of assigning a score may be much more complex.  We devote the remainder of this section to discussion of the various techniques for assigning a score and settle on a combined metric than can be used for any probabilistic graphical model.
+
+\subsection{Simple Methods of Assigning Scores}
+\subsubsection{Highest Marginal Entropy}
+\sean{Simplest possible score. Select node with highest marginal. Model: Linear-chain CRF.}
+\subsubsection{Most Frequent}
+\sean{Select node pertaining to token that appears most in the observation. Model: Skip-Chain CRF.}
+\subsubsection{Most Dependency}
+\sean{Select node with most connections, ie. upon which others are most dependent. Model: Generalized PGM}
+\subsection{Neighborhoods: Total Score Metric}
+\sean{Combine all methods above to produce an optimal score metric across any generalized PGM}

@@ -1,0 +1,20 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Sean Goldberg
+% 2/13/2012
+% CrowdPillar Project
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Experiment 1:
+%
+% Test the correlation between accuracy and entropy for each token
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+Exp = csvread('Exp1_acc_vs_ent.csv');
+
+numtokens = size(Exp,1);
+figure;
+
+Exp_0 = Exp(:,2);
+Exp_0 = Exp_0(Exp(:,1)==
+Exp_1 = Exp(:,2);
+
+hold off;

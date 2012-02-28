@@ -1,24 +1,53 @@
 \section{Question Formulation}
-
-Given a graphical model with uncertainty associated with a set of unobserved nodes, the main task of CrowdPillar is designating which nodes to observe and by performing inference reduce the uncertainty of the entire system.  Observation is the act of clamping a random variable to a specific value.  For the case of information extraction, this is the truth value of the particular token.
+Given a graphical model designed to perform statistical analysis upon a PDB and the uncertainty associated with a set of unobserved nodes, the main task of CrowdPillar is designating which nodes to observe and by performing inference reduce the uncertainty of the entire system.  Observation is the act of clamping a random variable to a specific value.  For the case of information extraction, this is the truth value of the particular token.
 
 This section is concerned with precisely how to select the optimal node to observe from a graphical model.  Since the entropy of the system is our main barometer, the node whose resolution best reduces this uncertainty is the one sent to the crowd.  Before we can form a discussion about optimal node selection, we must first introduce the metric by which uncertainty is measured in our sysem.
 
 
 \subsection{Total Utility Function}
+In order to make a decision about which node to query, we develop the concept of a Total Utility Function (TUF). The TUF fulfills two prominent and necessary roles: quantification and selection.  At its core, it represents a quantification of the uncertainty so that we may measure differences in total uncertainty between different configurations of our model.  The second functionality is that is designed in such a way as to rapidly promote uncertainty reduction by identifying the key node hubs whose resolution gives the greatest effect.  There are node features that need to be taken into account such as frequency and dependency which will be discussed in greater detail later in the section. 
 
-In order to make a decision about which node to query, we develop the concept of a Total Utility Function (TUF) associated with each type of graphical model. The TUF fulfills two prominent and necessary roles: quantification and selection.  At its core, it represents a quantification of the uncertainty so that we may measure differences in total uncertainty between different configurations of our model.  The second functionality is that is designed in such a way as to rapidly promote uncertainty reduction by identifying the key node hubs whose resolution gives the greatest effect.  There are node features that need to be taken into account such as frequency and dependency which will be discussed in greater detail later in the section 
-
-The Total Utility Function works by assigning to each unobserved node some kind of score. There are two paradigms that may be used here.  The first is to assign each node a score in a simple manner and combine them in some complex model-dependent way.  The other is to leave the score combination simple. but create complex ways to attach a score to each node.  We choose the latter approach because it is more easily generalizable to various PGMs.
+There are two paradigms that may be used here.  The first is to assign each node a score in a simple manner and combine them in some complex model-dependent way.  The other is to leave the score combination simple. but create complex ways to attach a score to each node.  We choose the latter approach because it is more easily generalizable to various PGMs.
 
 The simplest way to combine scores is to take the sum.  This makes node selection for reduction simple.  By observing the node with the highest score and reducing its score to zero, the entire function is maximally reduced.  The tradeoff is that the method of assigning a score may be much more complex.  We devote the remainder of this section to discussion of the various techniques for assigning a score and settle on a combined metric than can be used for any probabilistic graphical model.
 
 \subsection{Simple Methods of Assigning Scores}
 \subsubsection{Highest Marginal Entropy}
-\sean{Simplest possible score. Select node with highest marginal. Model: Linear-chain CRF.}
-\subsubsection{Most Frequent}
-\sean{Select node pertaining to token that appears most in the observation. Model: Skip-Chain CRF.}
+Linear-chain Hidden Markov Models or Conditional Random Fields are perhaps the simplest type of PGM to assign a score to due to the uniformity of each node in the graph.  With the exception of the first and last nodes in the chain, every node has the same type and number of pair-wise edge features.  Thus any means of assigning a score is consistent across all nodes.
+
+The property we hope to achieve with score assignment is to give the largest scores to the most uncertain nodes.  The uncertainty associated with a specific node is achieved by calculating the entropy over its marginalized distribution.  For a linear-chain CRF, this leads to a simple method of ascertaining the score:
+%\begin{equation}
+%S^{m} = \sum_{i=1}^{L}\sum_{j\neq m}p_{i}^{m}(
+%\end{equation}
+(EQUATION)
+where $p_{i}^{j}$ is the probability of the $m^{th}$ node being assigned label $i$ and $L$ is the size of the label space.
+
+In making a decision about which node in a sequence to the submit to the crowd, we calculate the marginal entropy for every node and take the highest one.  The crucial assumption here is that the most uncertain node generally has the highest probability of being incorrect compared with other nodes in the sequence.  In our experiments in Section (SECTION) we prove this to be precisely the case.  
+
+Although the response from the crowd only holds information pertaining to a single node's assignment, inference provides a wider-reaching chain reaction effect.  As discussed earlier, the most likely path sequence is determined by a type of Viterbi dynamic programming algorithm that uses values obtained from the Forward-Backward algorithm.  Changing the label of a single node $m$ may change the labels of other nodes in $m$'s neighborhood.  The total entropy of the entire sequence may be reduced well beyond the contribution of the queried node.
+
 \subsubsection{Most Dependency}
-\sean{Select node with most connections, ie. upon which others are most dependent. Model: Generalized PGM}
+Since inference provides a means of updating multiple nodes from a single answer, it would be useful to have a score that is proportional to this chain reaction effect.  That is, those nodes with the greatest ability to impact its surrounding neighborhood should be awarded the highest score.  This increases the impact of every question asked. 
+
+It is intractable to model this dependency exactly.  First, it's impossible to know how a neighborhood's nodes will be updated in advance of the answer being received.  One would have to consider the result of every answer and compute some average change in uncertainty over the entire graphical model.  In addition, this process would have to be done over every node in the model.  If takes an amount of time $T$ to do inference, the total time complexity increases to (TIME).  This is computationally infeasible for most models.
+
+For generalized graphical models, it is clear the impact of resolving a node is proportional to the number of nodes which share edge-wise features with it.  Nodes with a higher degree are more "important" to resolve.  Thus another metric for scoring is the degree of each node.
+
+To illustrate this idea further, consider an experiment involving a connected social network and movie recommendation system.  We want to select a single user to ask about which movies they like and in turn make recommendations to their friends under the assumption that friends like similar movies.  The user likely to give the maximum number of recommendations is simply the one with the most friends.  Modeling the social network as a graph, this is the node with the most edges.
+
+This score assignment based on the node with the highest dependency can also be used in the information extraction domain.  One recent modification to the linear-chain model is to use "skip-edges" connecting possibly distant nodes in the sequence.  The goal is for multiple nodes representing the same entity to be resolved simultaneously.  In this case we would seek to ask a question about the nodes connected by the greatest number of skip-edges, ie. resolving those entities that appear most in the sequence and whose resolution has the greatest impact.
+
 \subsection{Neighborhoods: Total Score Metric}
-\sean{Combine all methods above to produce an optimal score metric across any generalized PGM}
+It is desirable to be able to assign a score to a a node in a generalized probabilistic graphical model without explicitly depending on the type of model.  The two factors by which a score can be measured are the entropy of the node and its degree.  To this end, we propose a method that combines both properties and can be applied to a numerous models more general than the linear-chain discussed in detail in this paper.
+
+Figure (FIGURE) shows the entropy distribution for a the labeling of a sample bibliographic sequence.  Rather than being randomly distributed, high entropy values appear in pockets of small neigborhoods.  This is standard among many sequences investigated.  This notion of clustering of high entropy nodes around the highest ones in the sequence motivates an additional method of combining scores that naturally carries the properties needed from the previous two sections.
+
+Instead of taking the marginal entropy over a single node as the only score metric, we combine the entropies of each node with those of all nodes of order $k$ or less.  By this we mean all nodes connected to the node in question by $k$ or fewer edges.  Formally:
+(EQUATION)
+In our experiments we take $k=1$ and analyze all nodes connected by a single edge.  
+
+As per Figure (FIGURE), should have little effect on the single highest marginal method for linear-chain models.  The highest entropy node in a sequence usually appears among other high entropy nodes.  As we show in our experiments, in some cases where this is not true accuracy is actually improved by correcting a pocket of high nodes which individually do not have the highest entropy in the sequence.
+
+In addition, for models with greater variation in connectivity, nodes with a larger neighborhood will generally have a larger score by the Neighborhood Metric.  This method automatically accounts for the tradeoff between node pockets of high entropy and others that are connected to a larger number neighboring nodes.  While not covered in experiments in this paper, it is our belief that this metric could be applied universally to undirected models and undirected models.  Currently, we only cover linear-chains CRFs, but application of this method to other models such as Skip-Chain and Directed Trees is a direction for future work.
+
+While this section has focused on the number of ways to select a node in a PGM to submit to the crowd, it remains to be seen how to handle the retrieved result.  The problem is handled as a task in probabilistic data integration involving data from both the machine model and the crowd.  In the next section we discuss a method of combining crowd response and integrating it back into the system in a probabilistic manner.

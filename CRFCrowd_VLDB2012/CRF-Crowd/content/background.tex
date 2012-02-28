@@ -2,7 +2,11 @@
 \subsection{Probabilistic Databases}
 \sean{General overview of probabilistic databases and different types of PDBs.  Discuss various ways of handling uncertainty in the database and motivate advantages of a reduction in uncertainty.}
 \subsection{Probabilistic Graphical Models}
-\sean{Small overview of directed and undirected models}
+Probabilistic Graphical Models (PGMs) are graph structures used to encode the conditional independence properties between random variables (CITATION).  Bayesian Networks and Markov Networks are structured as directed acyclic graphs and undirected graphs, respectively.  The random variables are the nodes in the graph, while dependence relationships are modeled by the edges between them.  PGMs aid in the representation, inference, and learning associated with probabilistic models.
+
+A popular graphical model used extensively in shallow parsing, named entity recognition, and gene finding among others is the Conditional Random Field (CRF) (CITATION).  A CRF is a discriminative undirected PGM pictured in Figure (FIGURE).  Given a set of observed sequence tokens $X$, such as the words constituting a sentence, a CRF attempts to model the underlying hidden label sequence $Y$ by modeling the conditional distribution
+(EQUATION)
+where $\lambda_{k}$ and $\mu_{k}$ are learned parameters used to weight a set of fixed \textit{features} $f_{k}$ and $g_{k}$. Edge features $f_{k}$ are associated with relationships between hidden labels.  An example edge feature in an address labeling task is \texit{"the previous label is capitalized and the observed sequence is 9911"}, in which case the value associated with the current label being a street address would be much higher than any other label. Vertex features $g_{k}$ are associated with just the observed sequence and have a particular value depending on whether the observed token can be found in a look-up table for cities or states in our address labeling example.
 \subsection{PGMs in PDBs}
 \sean{Present overview of PGMs implemented into either DBs or PDBs.}
 \subsection{Entropy}

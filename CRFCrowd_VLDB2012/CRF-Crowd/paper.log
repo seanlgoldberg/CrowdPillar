@@ -1,8 +1,8 @@
-This is pdfTeX, Version 3.1415926-1.40.10 (TeX Live 2009/Debian) (format=pdflatex 2011.4.13)  27 FEB 2012 04:43
+This is pdfTeX, Version 3.1415926-1.40.10 (TeX Live 2009/Debian) (format=pdflatex 2011.4.13)  29 FEB 2012 02:05
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
-**paper.tex
+**paper
 (./paper.tex
 LaTeX2e <2009/09/24>
 Babel <v3.8l> and hyphenation patterns for english, usenglishmax, dumylang, noh
@@ -170,27 +170,16 @@ Package: titlesec 2005/01/22 v2.6 Sectioning titles
 \titlewidth=\dimen116
 \titlewidthlast=\dimen117
 \titlewidthfirst=\dimen118
-) (/usr/share/texmf-texlive/tex/latex/ltxmisc/ulem.sty
-\UL@box=\box30
-\UL@hyphenbox=\box31
-\UL@skip=\skip53
-\UL@hook=\toks21
-\UL@pe=\count112
-\UL@pixel=\dimen119
-\ULC@box=\box32
-Package: ulem 2000/05/26
-\ULdepth=\dimen120
-)
-(./abstract.sty
+) (./abstract.sty
 Package: abstract 2009/06/08 v1.2a configurable abstracts
-\abstitleskip=\skip54
-\absleftindent=\skip55
-\absrightindent=\skip56
-\absparindent=\skip57
-\absparsep=\skip58
+\abstitleskip=\skip53
+\absleftindent=\skip54
+\absrightindent=\skip55
+\absparindent=\skip56
+\absparsep=\skip57
 )) (./algorithm2e.sty
 Package: algorithm2e 2008/00/00 v3.10 algorithms environments
-\c@AlgoLine=\count113
+\c@AlgoLine=\count112
 
 (/usr/share/texmf-texlive/tex/latex/base/ifthen.sty
 Package: ifthen 2001/05/26 v1.1c Standard LaTeX ifthen package (DPC)
@@ -205,73 +194,73 @@ Package `algorithm2e' Release 4.01 -- december 14 2009 --
 subscribe by emailing sympa@lirmm.fr with 'subscribe <list> <firstname name>'
 - Author: Christophe Fiorio (fiorio@lirmm.fr)
 ********************************************************
-\skiptotal=\skip59
-\skiplinenumber=\skip60
-\skiprule=\skip61
-\skiphlne=\skip62
-\skiptext=\skip63
-\skiplength=\skip64
-\algomargin=\skip65
-\skipalgocfslide=\skip66
-\algowidth=\dimen121
-\inoutsize=\dimen122
-\inoutindent=\dimen123
-\interspacetitleruled=\dimen124
-\interspacealgoruled=\dimen125
-\interspacetitleboxruled=\dimen126
-\algocf@inoutbox=\box33
-\algocf@inputbox=\box34
-\AlCapSkip=\skip67
-\AlCapHSkip=\skip68
-\algocf@nlbox=\box35
-\algocf@hangingbox=\box36
-\algocf@capbox=\box37
-\algoheightruledefault=\skip69
-\algoheightrule=\skip70
-\algotitleheightruledefault=\skip71
-\algotitleheightrule=\skip72
-\c@algocfline=\count114
-\c@algocfproc=\count115
-\c@algocf=\count116
-\algocf@algoframe=\box38
-\algocf@algobox=\box39
+\skiptotal=\skip58
+\skiplinenumber=\skip59
+\skiprule=\skip60
+\skiphlne=\skip61
+\skiptext=\skip62
+\skiplength=\skip63
+\algomargin=\skip64
+\skipalgocfslide=\skip65
+\algowidth=\dimen119
+\inoutsize=\dimen120
+\inoutindent=\dimen121
+\interspacetitleruled=\dimen122
+\interspacealgoruled=\dimen123
+\interspacetitleboxruled=\dimen124
+\algocf@inoutbox=\box30
+\algocf@inputbox=\box31
+\AlCapSkip=\skip66
+\AlCapHSkip=\skip67
+\algocf@nlbox=\box32
+\algocf@hangingbox=\box33
+\algocf@capbox=\box34
+\algoheightruledefault=\skip68
+\algoheightrule=\skip69
+\algotitleheightruledefault=\skip70
+\algotitleheightrule=\skip71
+\c@algocfline=\count113
+\c@algocfproc=\count114
+\c@algocf=\count115
+\algocf@algoframe=\box35
+\algocf@algobox=\box36
 ) (./paper.aux)
 \openout1 = `paper.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 36.
-LaTeX Font Info:    ... okay on input line 36.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 36.
-LaTeX Font Info:    ... okay on input line 36.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 36.
-LaTeX Font Info:    ... okay on input line 36.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 36.
-LaTeX Font Info:    ... okay on input line 36.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 36.
-LaTeX Font Info:    ... okay on input line 36.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 36.
-LaTeX Font Info:    ... okay on input line 36.
-LaTeX Font Info:    Try loading font information for OT1+ptm on input line 36.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 37.
+LaTeX Font Info:    ... okay on input line 37.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 37.
+LaTeX Font Info:    ... okay on input line 37.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 37.
+LaTeX Font Info:    ... okay on input line 37.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 37.
+LaTeX Font Info:    ... okay on input line 37.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 37.
+LaTeX Font Info:    ... okay on input line 37.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 37.
+LaTeX Font Info:    ... okay on input line 37.
+LaTeX Font Info:    Try loading font information for OT1+ptm on input line 37.
  (/usr/share/texmf-texlive/tex/latex/psnfss/ot1ptm.fd
 File: ot1ptm.fd 2001/06/04 font definitions for OT1/ptm.
 )
 (/usr/share/texmf-texlive/tex/context/base/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count117
-\scratchdimen=\dimen127
-\scratchbox=\box40
-\nofMPsegments=\count118
-\nofMParguments=\count119
-\everyMPshowfont=\toks22
-\MPscratchCnt=\count120
-\MPscratchDim=\dimen128
-\MPnumerator=\count121
-\everyMPtoPDFconversion=\toks23
+\scratchcounter=\count116
+\scratchdimen=\dimen125
+\scratchbox=\box37
+\nofMPsegments=\count117
+\nofMParguments=\count118
+\everyMPshowfont=\toks21
+\MPscratchCnt=\count119
+\MPscratchDim=\dimen126
+\MPnumerator=\count120
+\everyMPtoPDFconversion=\toks22
 )
-LaTeX Font Info:    Try loading font information for U+msa on input line 37.
+LaTeX Font Info:    Try loading font information for U+msa on input line 38.
  (/usr/share/texmf-texlive/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2009/06/22 v3.00 AMS symbols A
 )
-LaTeX Font Info:    Try loading font information for U+msb on input line 37.
+LaTeX Font Info:    Try loading font information for U+msb on input line 38.
 
 (/usr/share/texmf-texlive/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2009/06/22 v3.00 AMS symbols B
@@ -287,74 +276,115 @@ Underfull \hbox (badness 1264) in paragraph at lines 2--3
  []
 
 
-Underfull \vbox (badness 6428) has occurred while \output is active []
+Underfull \vbox (badness 1902) has occurred while \output is active []
 
  [1{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}
 
 
-]) (./content/background.tex)
-(./content/system.tex
-Underfull \hbox (badness 1655) in paragraph at lines 8--9
+]) (./content/background.tex
+
+pdfTeX warning: pdflatex (file ./images/CRF1.pdf): PDF inclusion: found PDF ver
+sion <1.6>, but at most version <1.4> allowed
+<images/CRF1.pdf, id=8, 722.7pt x 325.215pt>
+File: images/CRF1.pdf Graphic file (type pdf)
+ <use images/CRF1.pdf>
+Overfull \hbox (5.0pt too wide) in paragraph at lines 10--12
+ [][] 
+ []
+
+
+Underfull \vbox (badness 3354) has occurred while \output is active []
+
+ [2 <./images/CRF1.pdf>]) (./content/system.tex
+<images/system_design.png, id=84, 538.26094pt x 362.85562pt>
+File: images/system_design.png Graphic file (type png)
+
+<use images/system_design.png>
+Underfull \hbox (badness 1655) in paragraph at lines 15--16
 \OT1/ptm/m/it/10 Pet-torossi CL 3-540-67797-6 Springer Lec-
  []
 
-[2]) (./content/TUF.tex [3] [4]) (./content/combine.tex
+[3 <./images/system_design.png (PNG copy)>]) (./content/TUF.tex [4] [5])
+(./content/combine.tex [6]
 LaTeX Font Info:    Try loading font information for OMS+ptm on input line 27.
-
-(/usr/share/texmf-texlive/tex/latex/psnfss/omsptm.fd
+ (/usr/share/texmf-texlive/tex/latex/psnfss/omsptm.fd
 File: omsptm.fd 
 )
 LaTeX Font Info:    Font shape `OMS/ptm/m/n' in size <10> not available
 (Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 27.
- [5]
+ [7]
 LaTeX Font Info:    Try loading font information for OT1+pcr on input line 98.
-
-(/usr/share/texmf-texlive/tex/latex/psnfss/ot1pcr.fd
+ (/usr/share/texmf-texlive/tex/latex/psnfss/ot1pcr.fd
 File: ot1pcr.fd 2001/06/04 font definitions for OT1/pcr.
-) [6])
-(./content/experiments.tex [7]
-<images/DS.png, id=37, 874.04189pt x 736.30377pt>
-File: images/DS.png Graphic file (type png)
- <use images/DS.png>)
-Underfull \hbox (badness 1852) in paragraph at lines 28--70
-[]\OT1/ptm/m/n/10 Figure 1[] shows an ac-cu-racy com-par-i-son be-tween
+) [8])
+(./content/experiments.tex
+<images/blue.png, id=108, 422.32782pt x 316.18124pt>
+File: images/blue.png Graphic file (type png)
+ <use images/blue.png>
+<images/red.png, id=109, 421.575pt x 316.18124pt>
+File: images/red.png Graphic file (type png)
+ <use images/red.png> [9 <./images/blue.png (PNG copy)> <./images/red.png (PNG 
+copy)>]
+<images/threshold.png, id=113, 421.575pt x 316.18124pt>
+File: images/threshold.png Graphic file (type png)
+
+<use images/threshold.png>
+<images/DS_fixed.png, id=114, 772.38562pt x 651.93562pt>
+File: images/DS_fixed.png Graphic file (type png)
+
+<use images/DS_fixed.png>)
+Underfull \hbox (badness 1852) in paragraph at lines 40--71
+[]\OT1/ptm/m/n/10 Figure 5[] shows an ac-cu-racy com-par-i-son be-tween
  []
 
-(./content/future_work.tex) (./content/conclusion.tex) (./bibliography.tex
-Underfull \hbox (badness 2213) in paragraph at lines 7--8
-[]\OT1/ptm/m/n/10 Glenn Shafer: \OT1/ptm/m/it/10 A Math-e-mat-i-cal The-ory of 
-Ev-i-
+(./content/future_work.tex) (./content/conclusion.tex) (./paper.bbl [10 <./imag
+es/threshold.png (PNG copy)> <./images/DS_fixed.png (PNG copy)>]
+Underfull \hbox (badness 1158) in paragraph at lines 22--27
+\OT1/ptm/m/n/10 a-bilis-tic data: foun-da-tions and chal-lenges.  In
  []
 
-[8 <./images/DS.png (PNG copy)>]
-Missing character: There is no Â in font ptmr7t!
-Missing character: There is no – in font ptmr7t!
-) [9
+
+Underfull \hbox (badness 10000) in paragraph at lines 77--82
+[]\OT1/ptm/m/n/10 I. Panos.  Me-chan-i-cal turk: Now with
+ []
+
+
+Underfull \hbox (badness 5388) in paragraph at lines 77--82
+\OT1/ptm/m/n/10 40.92% spam.  http://www.behind-the-enemy-
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 77--82
+\OT1/ptm/m/n/10 lines.com/2010/12/mechanical-turk-now-with-
+ []
+
+[11]) [12
 
 ] (./paper.aux) ) 
 Here is how much of TeX's memory you used:
- 3775 strings out of 495061
- 45709 string characters out of 1182621
- 131808 words of memory out of 3000000
- 6873 multiletter control sequences out of 15000+50000
- 21980 words of font info for 57 fonts, out of 3000000 for 9000
+ 3761 strings out of 495061
+ 46082 string characters out of 1182621
+ 127941 words of memory out of 3000000
+ 6853 multiletter control sequences out of 15000+50000
+ 24386 words of font info for 61 fonts, out of 3000000 for 9000
  28 hyphenation exceptions out of 8191
- 35i,25n,29p,927b,506s stack positions out of 5000i,500n,10000p,200000b,50000s
+ 35i,25n,29p,986b,506s stack positions out of 5000i,500n,10000p,200000b,50000s
 {/usr/share/texmf-texlive/fonts/enc/dvips/base/8r.enc}</usr/sh
-are/texmf-texlive/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/share/texmf-t
-exlive/fonts/type1/public/amsfonts/cmextra/cmex7.pfb></usr/share/texmf-texlive/
-fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/share/texmf-texlive/fonts/type1
-/public/amsfonts/cm/cmmi5.pfb></usr/share/texmf-texlive/fonts/type1/public/amsf
-onts/cm/cmmi7.pfb></usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmr1
-0.pfb></usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/s
-hare/texmf-texlive/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/texmf-
-texlive/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/share/texmf-texlive/font
-s/type1/urw/courier/ucrr8a.pfb></usr/share/texmf-texlive/fonts/type1/urw/times/
-utmb8a.pfb></usr/share/texmf-texlive/fonts/type1/urw/times/utmr8a.pfb></usr/sha
-re/texmf-texlive/fonts/type1/urw/times/utmri8a.pfb>
-Output written on paper.pdf (9 pages, 193175 bytes).
+are/texmf-texlive/fonts/type1/public/amsfonts/cm/cmbx10.pfb></usr/share/texmf-t
+exlive/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/share/texmf-texlive/font
+s/type1/public/amsfonts/cmextra/cmex7.pfb></usr/share/texmf-texlive/fonts/type1
+/public/amsfonts/cm/cmmi10.pfb></usr/share/texmf-texlive/fonts/type1/public/ams
+fonts/cm/cmmi5.pfb></usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmm
+i7.pfb></usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr
+/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/share/texmf-
+texlive/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/texmf-texlive/fon
+ts/type1/public/amsfonts/cm/cmsy7.pfb></usr/share/texmf-texlive/fonts/type1/urw
+/courier/ucrr8a.pfb></usr/share/texmf-texlive/fonts/type1/urw/times/utmb8a.pfb>
+</usr/share/texmf-texlive/fonts/type1/urw/times/utmr8a.pfb></usr/share/texmf-te
+xlive/fonts/type1/urw/times/utmri8a.pfb>
+Output written on paper.pdf (12 pages, 456022 bytes).
 PDF statistics:
- 86 PDF objects out of 1000 (max. 8388607)
+ 169 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
- 6 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 31 words of extra memory for PDF output out of 10000 (max. 10000000)
 

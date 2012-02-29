@@ -1,5 +1,13 @@
 \section{Experiments}
-Our experiments were conducted using (NUM ENTRIES) entries from the PROXIMITY DBLP database of Computer Science bibliographies (CITATION).  Each bibliographic sequence contains 8 fields pertaining to the title, authors, conference, ISBN, publisher, volume, proceedings, and year.  While the entire CrowdPillar system is not yet complete, we seek to justify the ideas presented in this paper using a standard Java implementation of a linear-chain CRF (CITATION), namely the ability to highlight the most inaccurate tokens based on entropy methods and correct them in batch using the crowd.
+Our experiments were conducted using 9600 entries from the PROXIMITY DBLP database of Computer Science bibliographies (CITATION).  Each bibliographic sequence contains 8 fields pertaining to the title, authors, conference, ISBN, publisher, volume, proceedings, and year.  While the entire CrowdPillar system is not yet complete, we seek to justify the ideas presented in this paper using a standard Java implementation of a linear-chain CRF (CITATION), namely the ability to highlight the most inaccurate tokens based on entropy methods and correct them in batch using the crowd.
+
+\begin{figure}
+\centering
+\subfigure[Correctly Labeled]{\label{fig:blue}\includegraphics[width=0.24\textwidth]{images/blue.png}}
+\subfigure[Incorrectly Labeled]{\label{fig:red}\includegraphics[width=0.24\textwidth]{images/red.png}}
+\caption[example] {Normalized entropy histograms for correctly and incorrectly labeled tokens.}
+\end{figure} 
+
 
 \subsection{Entropy vs. Inaccuracy}
 The fundamental assumption our question formulation methods hinge upon is the direct correlation between inaccurate tokens and their marginal entropy level.  Figures (FIG) and (FIG) demonstrate the veracity of this assumption.  The marginal entropy of every token in the 8,629 sequence test set is measured and histogrammed by correct and incorrect sequences. The majority of accurate tokens tend to lower entropy values while the inaccurate ones appear in a much higher range.  Table (TABLE) shows further statistics for two classes.
@@ -7,20 +15,24 @@ The fundamental assumption our question formulation methods hinge upon is the di
 \subsection{Uncertainty Reduction}
 It is intractable to be able to ask a question about every node and send it to the crowd.  The key to CrowdPillar's success is the ability to optimally select nodes from budget size $k$ sequences which reduce uncertainty in the entire system the most.  In testing our node selection algorithm, the chosen nodes were replaced by their ground truth values.  In practice, as discussed in Section (SECTION), the real feedback from the crowd is complex and probabilistic.  After being clamping to the nodes' ground truth values, each sequence was re-run with a "Clamped Viterbi" algorithm, which is the original CRF Viterbi modified so all label paths pass through the truthed node's value.
 
+\begin{figure}
+\centering
+\includegraphics[width=0.48\textwidth]{images/threshold.png}
+\caption[example] { 
+\label{fig:thresh} 
+Average increase in accuracy for each clamped sequence selected by various thresholds.  The threshold determines the level above which a node's entropy is considered "high".}
+\end{figure} 
+
 With a budget of $k=100$, we explored two possible ways of selecting the optimal token sets.  In the first, we merely sorted by the value of the highest entropy node in the sequence and took the $k$.  As an alternative, we experimented with a metric embodying the number of "high" entropy nodes the sequence contained.  The motivation for this additional method was the observation that some correct sequences contained a small number of high entropy nodes, while the more inaccurate ones contained entropies of a smaller magnitude but in greater number.
 
 \subsection{Dempster-Shafer Combination}
 
 \begin{figure}
-\begin{center}
-\begin{tabular}{c}
-\includegraphics[height=6cm]{images/DS.png}
-\end{tabular}
-\end{center}
+\centering
+\includegraphics[width=0.425\textwidth]{images/DS_fixed.png}
 \caption[example] { 
 \label{fig:DS} 
-Comparison of Dempster-Shafer combination (red) vs. majority voting (blue) for possibly unreliable Turkers.  Q denotes the mean quality level of the selected Turkers.  The DS method increases in performance compared to majority voting as the Turkers become more unreliable.
-}
+Comparison of Dempster-Shafer combination (red) vs. majority voting (blue) for possibly unreliable Turkers.  Q denotes the mean quality level of the selected Turkers.  The DS method increases in performance compared to majority voting as the Turkers become more unreliable.}
 \end{figure} 
 
 To test the use of DS combination vs. majority voting for probabilistic data, we generated a synthetic data set for Turker responses to 1,000 binary questions.  $M$ Turker responses were generated for each question for a total of $1000M$ responses, where $M = $3, 5, 7, 9, 11, and 15.  For each response, a Turker was generated with quality rating drawn from a normal distribution centered at 0.9, 0.7, 0.5, and 0.3 with a deviation of 0.1 and thresholded beteen [0,1].  The quality rating determined the likelihood that Turker's answer reflected the ground truth.  For example, a Turker with a quality rating of 0.8 was associated with an answer that was correct with 80\% probability and a random choice with 20\% probability.  This rating could be derived from the individual Turker quality or could be seen as a function of a difficult question that produces low quality results.

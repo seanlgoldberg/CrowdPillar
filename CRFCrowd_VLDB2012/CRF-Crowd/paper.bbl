@@ -1,0 +1,139 @@
+\begin{thebibliography}{10}
+
+\bibitem{DBLP:conf/vldb/AgrawalBSHNSW06}
+P.~Agrawal, O.~Benjelloun, A.~D. Sarma, C.~Hayworth, S.~U. Nabar, T.~Sugihara,
+  and J.~Widom.
+\newblock Trio: A system for data, uncertainty, and lineage.
+\newblock In {\em VLDB}, pages 1151--1154, 2006.
+
+\bibitem{Barbara92}
+D.~Barbar\'{a}, H.~Garcia-Molina, and D.~Porter.
+\newblock The management of probabilistic data.
+\newblock {\em IEEE Trans. on Knowl. and Data Eng.}, 4:487--502, October 1992.
+
+\bibitem{Boulos:2005:MSF:1066157.1066277}
+J.~Boulos, N.~Dalvi, B.~Mandhani, S.~Mathur, C.~Re, and D.~Suciu.
+\newblock Mystiq: a system for finding more answers by using probabilities.
+\newblock In {\em Proceedings of the 2005 ACM SIGMOD international conference
+  on Management of data}, SIGMOD '05, pages 891--893, New York, NY, USA, 2005.
+  ACM.
+
+\bibitem{Dalvi07}
+N.~Dalvi and D.~Suciu.
+\newblock Management of probabilistic data: foundations and challenges.
+\newblock In {\em PODS '07: Proceedings of the twenty-sixth ACM
+  SIGMOD-SIGACT-SIGART symposium on Principles of database systems}, pages
+  1--12, New York, NY, USA, 2007. ACM Press.
+
+\bibitem{dawid79}
+A.~P. Dawid and A.~M. Skene.
+\newblock {Maximum Likelihood Estimation of Observer Error-Rates Using the EM
+  Algorithm}.
+\newblock {\em Journal of the Royal Statistical Society. Series C (Applied
+  Statistics)}, 28(1):20--28, 1979.
+
+\bibitem{dempster67a}
+A.~P. Dempster.
+\newblock {Upper and lower probabilities induced by a multivalued mapping}.
+\newblock {\em Annals of Mathematical Statistics}, 38:325--339, 1967.
+
+\bibitem{Huang09maybms:a}
+J.~Huang, L.~Antova, C.~Koch, and D.~Olteanu.
+\newblock Maybms: a probabilistic database management system.
+\newblock In {\em In SIGMOD Conference}, 2009.
+
+\bibitem{Ipeirotis:2010:QMA:1837885.1837906}
+P.~G. Ipeirotis, F.~Provost, and J.~Wang.
+\newblock Quality management on amazon mechanical turk.
+\newblock In {\em Proceedings of the ACM SIGKDD Workshop on Human Computation},
+  HCOMP '10, pages 64--67, New York, NY, USA, 2010. ACM.
+
+\bibitem{Jordan98}
+M.~Jordan.
+\newblock {\em Learning in graphical models}.
+\newblock Adaptive computation and machine learning. MIT Press, 1998.
+
+\bibitem{Koller+Friedman:09}
+D.~Koller and N.~Friedman.
+\newblock {\em Probabilistic Graphical Models: Principles and Techniques}.
+\newblock MIT Press, 2009.
+
+\bibitem{Kristjansson:2004:IIE:1597148.1597216}
+T.~Kristjansson, A.~Culotta, P.~Viola, and A.~McCallum.
+\newblock Interactive information extraction with constrained conditional
+  random fields.
+\newblock In {\em Proceedings of the 19th national conference on Artifical
+  intelligence}, AAAI'04, pages 412--418. AAAI Press, 2004.
+
+\bibitem{Lafferty01}
+J.~D. Lafferty, A.~McCallum, and F.~C.~N. Pereira.
+\newblock Conditional random fields: Probabilistic models for segmenting and
+  labeling sequence data.
+\newblock In {\em Proceedings of the Eighteenth International Conference on
+  Machine Learning}, ICML '01, pages 282--289, San Francisco, CA, USA, 2001.
+  Morgan Kaufmann Publishers Inc.
+
+\bibitem{Panos10}
+I.~Panos.
+\newblock Mechanical turk: Now with 40.92\% spam.
+\newblock
+  http://www.behind-the-enemy-lines.com/2010/12/mechanical-turk-now-with-4092-%
+spam.html, Dec 2010.
+
+\bibitem{quinn10}
+A.~Quinn, B.~Bederson, T.~Yeh, and J.~Lin.
+\newblock {CrowdFlow: Integrating Machine Learning with Mechanical Turk for
+  Speed-Cost-Quality Flexibility}.
+\newblock Technical report, University of Maryland, May 2010.
+
+\bibitem{Rashtchian:2010:CIA:1866696.1866717}
+C.~Rashtchian, P.~Young, M.~Hodosh, and J.~Hockenmaier.
+\newblock Collecting image annotations using amazon's mechanical turk.
+\newblock In {\em Proceedings of the NAACL HLT 2010 Workshop on Creating Speech
+  and Language Data with Amazon's Mechanical Turk}, CSLDAMT '10, pages
+  139--147, Stroudsburg, PA, USA, 2010. Association for Computational
+  Linguistics.
+
+\bibitem{Sen09}
+P.~Sen, A.~Deshpande, and L.~Getoor.
+\newblock Prdb: managing and exploiting rich correlations in probabilistic
+  databases.
+\newblock {\em The VLDB Journal}, 18:1065--1090, October 2009.
+
+\bibitem{Shafer76}
+G.~Shafer.
+\newblock {\em {A mathematical theory of evidence}}.
+\newblock Princeton university press, 1976.
+
+\bibitem{Shannon48}
+C.~E. Shannon.
+\newblock {A mathematical theory of communication}.
+\newblock {\em Bell system technical journal}, 27, 1948.
+
+\bibitem{Sheng:2008:GLI:1401890.1401965}
+V.~S. Sheng, F.~Provost, and P.~G. Ipeirotis.
+\newblock Get another label? improving data quality and data mining using
+  multiple, noisy labelers.
+\newblock In {\em Proceedings of the 14th ACM SIGKDD international conference
+  on Knowledge discovery and data mining}, KDD '08, pages 614--622, New York,
+  NY, USA, 2008. ACM.
+
+\bibitem{DBLP:conf/comad/SinghMMPHS08}
+S.~Singh, C.~Mayfield, S.~Mittal, S.~Prabhakar, S.~E. Hambrusch, and R.~Shah.
+\newblock The orion uncertain data management system.
+\newblock In {\em COMAD}, pages 273--276, 2008.
+
+\bibitem{Wang11}
+D.~Z. Wang, M.~J. Franklin, M.~Garofalakis, J.~M. Hellerstein, and M.~L. Wick.
+\newblock Hybrid in-database inference for declarative information extraction.
+\newblock In {\em Proceedings of the 2011 international conference on
+  Management of data}, SIGMOD '11, pages 517--528, New York, NY, USA, 2011.
+  ACM.
+
+\bibitem{Wang08}
+D.~Z. Wang, E.~Michelakis, M.~Garofalakis, and J.~M. Hellerstein.
+\newblock Bayesstore: managing large, uncertain data repositories with
+  probabilistic graphical models.
+\newblock {\em Proc. VLDB Endow.}, 1:340--351, August 2008.
+
+\end{thebibliography}

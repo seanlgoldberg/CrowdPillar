@@ -1,8 +1,52 @@
-This is BibTeX, Version 0.99dThe top-level auxiliary file: paper.aux
-I couldn't open style file abbvr.bst
----line 21 of file paper.aux
- : \bibstyle{abbvr
- :                }
-I'm skipping whatever remains of this command
-I found no style file---while reading file paper.aux
+This is BibTeX, Version 0.99c (TeX Live 2009/Debian)
+The top-level auxiliary file: paper.aux
+The style file: abbvr.bst
+Database file #1: citation.bib
+A bad cross reference---entry "DBLP:conf/vldb/AgrawalBSHNSW06"
+refers to entry "DBLP:conf/vldb/2006", which doesn't exist
+A bad cross reference---entry "DBLP:conf/comad/SinghMMPHS08"
+refers to entry "DBLP:conf/comad/2008", which doesn't exist
+Warning--I didn't find a database entry for "DBLP:conf/vldb/2006"
+Warning--I didn't find a database entry for "DBLP:conf/comad/2008"
+You've used 22 entries,
+            2118 wiz_defined-function locations,
+            666 strings with 8727 characters,
+and the built_in function-call counts, 8775 in all, are:
+= -- 895
+> -- 411
+< -- 10
++ -- 164
+- -- 140
+* -- 589
+:= -- 1396
+add.period$ -- 75
+call.type$ -- 22
+change.case$ -- 134
+chr.to.int$ -- 0
+cite$ -- 22
+duplicate$ -- 356
+empty$ -- 671
+format.name$ -- 140
+if$ -- 1909
+int.to.chr$ -- 0
+int.to.str$ -- 22
+missing$ -- 23
+newline$ -- 113
+num.names$ -- 44
+pop$ -- 149
+preamble$ -- 1
+purify$ -- 114
+quote$ -- 0
+skip$ -- 268
+stack$ -- 0
+substring$ -- 536
+swap$ -- 111
+text.length$ -- 10
+text.prefix$ -- 0
+top$ -- 0
+type$ -- 82
+warning$ -- 0
+while$ -- 82
+width$ -- 24
+write$ -- 262
 (There were 2 error messages)

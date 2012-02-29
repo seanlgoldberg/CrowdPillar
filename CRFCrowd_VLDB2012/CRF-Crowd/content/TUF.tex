@@ -1,30 +1,42 @@
 \section{Question Formulation}
-Given a graphical model designed to perform statistical analysis upon a PDB and the uncertainty associated with a set of unobserved nodes, the main task of CrowdPillar is designating which nodes to observe and by performing inference reduce the uncertainty of the entire system.  Observation is the act of clamping a random variable to a specific value.  For the case of information extraction, this is the truth value of the particular token.
+Given a graphical model designed to perform statistical analysis upon a PDB and the uncertainty associated with a set of unobserved nodes, the main task of CrowdPillar is designating which nodes to observe and by performing inference reduce the uncertainty of the entire system.  Observation is the act of clamping a random variable to a specific value.  For the case of information extraction, this is label provided by the crowd.
 
-This section is concerned with precisely how to select the optimal node to observe from a graphical model.  Since the entropy of the system is our main barometer, the node whose resolution best reduces this uncertainty is the one sent to the crowd.  Before we can form a discussion about optimal node selection, we must first introduce the metric by which uncertainty is measured in our sysem.
-
+This section is concerned with precisely how to select the optimal node to observe from a graphical model.  The node whose resolution best reduces the overall model uncertainty is the one sent to the crowd.  Before we can form a discussion about optimal node selection, we must first introduce the metric by which uncertainty is measured in our sysem.
 
 \subsection{Total Utility Function}
-In order to make a decision about which node to query, we develop the concept of a Total Utility Function (TUF). The TUF fulfills two prominent and necessary roles: quantification and selection.  At its core, it represents a quantification of the uncertainty so that we may measure differences in total uncertainty between different configurations of our model.  The second functionality is that is designed in such a way as to rapidly promote uncertainty reduction by identifying the key node hubs whose resolution gives the greatest effect.  There are node features that need to be taken into account such as frequency and dependency which will be discussed in greater detail later in the section. 
+In order to make a decision about which node to query, we develop the concept of a Total Utility Function (TUF). The TUF fulfills two prominent and necessary roles: quantification and selection.  At its core, it represents a quantification of the uncertainty so that we may measure differences in total uncertainty between different configurations of our model.  The second functionality is that is designed in such a way as to rapidly promote uncertainty reduction by identifying the key node hubs whose resolution gives the greatest effect.  Node features such as entropy and dependency need to be taken into account and will be discussed in greater detail later in the section. 
 
-There are two paradigms that may be used here.  The first is to assign each node a score in a simple manner and combine them in some complex model-dependent way.  The other is to leave the score combination simple. but create complex ways to attach a score to each node.  We choose the latter approach because it is more easily generalizable to various PGMs.
+There are two paradigms that may be used here.  The first is to assign each node $t$ a score $S_{t}$ in a simple manner and combine them in some complex model-dependent way.  The other is to leave the score combination simple. but create complex ways to attach a score to each node.  We choose the latter approach because it is more easily generalizable to various PGMs.
 
-The simplest way to combine scores is to take the sum.  This makes node selection for reduction simple.  By observing the node with the highest score and reducing its score to zero, the entire function is maximally reduced.  The tradeoff is that the method of assigning a score may be much more complex.  We devote the remainder of this section to discussion of the various techniques for assigning a score and settle on a combined metric than can be used for any probabilistic graphical model.
+The simplest way to combine scores is to take the sum, ie. for a model with T nodes:
+\begin{equation}
+TUF = \sum_{t=1}^{T}S_{t}
+\end{equation}
+This makes node selection for uncertainty reduction simple.  By observing the node with the highest score and reducing that score to zero, the entire function is maximally reduced.  The tradeoff is that the method of assigning a score may be much more complex.  We devote the remainder of this section to discussion of the various techniques for assigning a score and settle on a combined metric that we assert can be used for a wide range of probabilistic graphical models.
 
 \subsection{Simple Methods of Assigning Scores}
-\subsubsection{Highest Marginal Entropy}
-Linear-chain Hidden Markov Models or Conditional Random Fields are perhaps the simplest type of PGM to assign a score to due to the uniformity of each node in the graph.  With the exception of the first and last nodes in the chain, every node has the same type and number of pair-wise edge features.  Thus any means of assigning a score is consistent across all nodes.
+Below we present two methods of attaching scores to nodes based on their marginal entropy and dependency among other nodes.  The main application of these methods is to linear-chain conditional random fields, but additional model dependent methods may be used in the appropriate context.  
 
-The property we hope to achieve with score assignment is to give the largest scores to the most uncertain nodes.  The uncertainty associated with a specific node is achieved by calculating the entropy over its marginalized distribution.  For a linear-chain CRF, this leads to a simple method of ascertaining the score:
-%\begin{equation}
-%S^{m} = \sum_{i=1}^{L}\sum_{j\neq m}p_{i}^{m}(
-%\end{equation}
-(EQUATION)
-where $p_{i}^{j}$ is the probability of the $m^{th}$ node being assigned label $i$ and $L$ is the size of the label space.
+\subsubsection{Marginal Entropy}
+Linear-chain Hidden Markov Models or Conditional Random Fields are one the simplest type of PGM to assign a score to due to the uniformity of each node in the graph.  With the exception of the first and last nodes in the chain, every node has the same type and number of pair-wise edge features.  Thus any means of assigning $S_{t}$ is consistent across all nodes.
 
-In making a decision about which node in a sequence to the submit to the crowd, we calculate the marginal entropy for every node and take the highest one.  The crucial assumption here is that the most uncertain node generally has the highest probability of being incorrect compared with other nodes in the sequence.  In our experiments in Section (SECTION) we prove this to be precisely the case.  
+The property we hope to achieve with score assignment is to give the largest scores to the most uncertain nodes.  The uncertainty associated with a specific node is achieved by calculating the entropy over its marginalized distribution.  Marginalization in a CRF is done through the forward-backward algorithm \cite{Lafferty01} utilizing forward ($\alpha$) and backward ($\beta$) inference messages meeting at the marginalized node.  The marginal probability of a node $t$ in the sequence being assigned label $i$ is given by
+\begin{equation}
+p(\mathbf{Y}_{t}=y_{i}|\mathbf{x}) = \frac{\alpha_{t}(y_{i}|\mathbf{x})\beta_{t}(y_{i}|\mathbf{x})}{Z(\mathbf{x})}.
+\end{equation}
+The marginal entropy of node $t$ is then
+\begin{equation}
+H_{t} = \sum_{i=1}^{L}p(\mathbf{Y}_{t} = y_{i})log[p(\mathbf{Y}_{t} = y_{i})],
+\end{equation}
+L is the label space of the problem.  This leads to a simple uncertainty score assignment of $S_{t}=H_{t}$.
 
-Although the response from the crowd only holds information pertaining to a single node's assignment, inference provides a wider-reaching chain reaction effect.  As discussed earlier, the most likely path sequence is determined by a type of Viterbi dynamic programming algorithm that uses values obtained from the Forward-Backward algorithm.  Changing the label of a single node $m$ may change the labels of other nodes in $m$'s neighborhood.  The total entropy of the entire sequence may be reduced well beyond the contribution of the queried node.
+In making a decision about which node in a sequence of length $T$ to the submit to the crowd, we calculate the marginal entropy $H_{t}$ for every node and take the highest one,
+\begin{equation}
+Selection = \argmax_{t}(H_{t}) t=1,\dots,T.
+\end{equation}
+The crucial assumption here is that the most uncertain node generally has the highest probability of being incorrect compared with other nodes in the sequence.  In our experiments in Section 6 we show that this is a safe assumption to make.  
+
+Although the response from the crowd only holds information pertaining to a single node's assignment, inference provides a wider-reaching chain reaction effect.  As discussed earlier, the most likely path sequence is determined by a type of Viterbi dynamic programming algorithm.  After clamping the label of node $t$ to label $i$, we run a Constrained Viterbi \cite{Kristjansson:2004:IIE:1597148.1597216} which fixes the Viterbi path to run through $i$ at $t$.  This may change the labels of other nodes in $t$'s neighborhood compared to before clamping.  Thus the total entropy of the entire sequence may be reduced well beyond the contribution of the selected node.
 
 \subsubsection{Most Dependency}
 Since inference provides a means of updating multiple nodes from a single answer, it would be useful to have a score that is proportional to this chain reaction effect.  That is, those nodes with the greatest ability to impact its surrounding neighborhood should be awarded the highest score.  This increases the impact of every question asked. 
